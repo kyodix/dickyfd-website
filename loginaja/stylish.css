@@ -1,0 +1,21 @@
+h1 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+body {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.login {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.login input {
+    text-decoration: none;
+    border-style: none;
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+}

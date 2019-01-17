@@ -1,0 +1,25 @@
+body {
+    text-align: center;
+}
+
+table {
+    /* border: 1px solid #000000; */
+}
+
+table tr th {
+    border: 1px solid #000000;
+}
+
+table tr td {
+    border: 1px solid #000000;
+}
+
+button {
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid #314179;
+    background-color: #637AAD;
+    font-weight: bold;
+    text-decoration: none;
+}
