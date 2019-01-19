@@ -1,6 +1,6 @@
 <div class="isiwork">
     <a href="index.php?halaman=my_work"><img src="img/folder design.png" alt=""></a>
-    <img src="img/application icon.png" alt="">
+    <img src="img/app icon.png" alt="">
     <h2>APPLICATION</h2>
     <?php
         include 'koneksi.php';

@@ -3,19 +3,67 @@
     <img src="img/games icon.png" alt="">
     <h2>GAMES</h2>
     <?php
-        include "koneksi.php";
-        $no = 1;
-        $data = mysqli_query($koneksi, "SELECT * FROM games");
-        while($d = mysqli_fetch_array($data)) {
-            ?>
-            <img src="<?php echo $d['gambargames']; ?>" alt="">
-            <p><b>Name</b> | <?php echo $d['namagames']; ?></p>
-            <p><b>Platform</b> | <?php echo $d['platformgames']; ?></p>
-            <p><b>Software</b> | <?php echo $d['softgames']; ?></p>
-            <p><b>Date</b> | <?php echo $d['dategames']; ?></p>
-            <p><b>Category</b> | <?php echo $d['kategorigames']; ?></p>
-            <p><b>Link</b> | <i><u><a target="_blank" href="<?php echo $d['linkgames']; ?>"><?php echo $d['namagames']; ?></a></u></i></p>
-        <?php
+        include 'koneksi.php';
+
+        if(isset($_GET['halaman'])) {
+            $halaman = $_GET['halaman'];
+        } else {
+            $halaman = 1;
         }
+
+        if($halaman == '' || $halaman == 1) {
+            $halaman1 = 0;
+        } else {
+            $halaman1 = ($halaman*5)-5;
+        }
+
+        $sql = 'SELECT * FROM games ORDER BY ID ASC LIMIT '.$halaman1.', 5';
+        $data = $koneksi->query($sql);
+
+        // print_r($data->fetch_all());
+        while($row = $data->fetch_assoc()) {
+            echo '<img src="'.$row['gambargames'].'">';
+            echo '<p><b>Name</b> | '.$row['namagames'].'</p>';
+            echo '<p><b>Platform</b> | '.$row['platformgames'].'</p>';
+            echo '<p><b>Software</b> | '.$row['softgames'].'</p>';
+            echo '<p><b>Date</b> | '.$row['dategames'].'</p>';
+            echo '<p><b>Category</b> | '.$row['kategorigames'].'</p>';
+            echo '<p><b>Link</b> | <i><u><a target="_blank" href="'.$row['linkgames'].'">'.$row['namagames'].'</a></u></i></p>';
+        }
+
+        //pagination
+        $sql = 'SELECT * FROM games';
+        $data = $koneksi->query($sql);
+        $records = $data->num_rows;
+        $records_halamans = $records/5;
+        $records_halamans = ceil($records_halamans);
+        $prev = $halaman - 1;
+        $next = $halaman + 1;
+
+        echo '<ul class="pagination">';
+
+        if($halaman >= 5) {
+            echo '<li><a href="?halaman=1">First</a></li>';
+        }
+
+        if ($prev >= 1) {
+            echo '<li><a href="?halaman='.$prev.'">Prev</a></li>';
+        }
+
+        if($records_halamans >= 2) {
+            for($r=1; $r <= $records_halamans; $r++) {
+                $active = $r == $halaman ? 'class="active"' : '';
+                echo '<li><a href="?halaman='.$r.'" '.$active.'>'.$r.'</a></li>';
+            }
+        }
+
+        if ($next <= $records_halamans && $records_halamans >= 2) {
+            echo '<li><a href="?halaman='.$next.'">Next</a></li>';
+        }
+        if($halaman != $records_halamans && $records_halamans >=5) {
+            echo '<li><a href="?halaman='.$records_halamans.'">Last</a></li>';
+        }
+
+        echo '</ul>';
     ?>
 </div>
